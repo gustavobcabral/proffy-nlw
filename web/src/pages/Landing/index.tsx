@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 
 import logoimg from "../../assets/images/logo.svg"
@@ -8,9 +8,24 @@ import studyIcon from "../../assets/images/icons/study.svg"
 import giveClassesIcon from "../../assets/images/icons/give-classes.svg"
 import purpleHeartIcon from "../../assets/images/icons/purple-heart.svg"
 
+import api from "../../services/api"
+
 import './styles.css'
 
 function Landing() {
+
+  const [TotalConnections, setTotalConnections] = useState(0);
+
+  useEffect(() => {
+    api.get('connections').then(response => {
+      const { total } = response.data;
+
+      setTotalConnections(total);
+    })
+  }, [])
+  // [] Quando as informacoes desse Array [] forem alteradas dispara a funcao.
+  // Se estiver vazio vai renderizar apenas uma vez qnd a tela for exibida
+  
   return (
     <div id="page-landing">
       <div id="page-landing-content" className="container">
@@ -37,7 +52,7 @@ function Landing() {
         </div>
 
         <span className="total-connections">
-          Total de 200 Conexões já realizadas <img src={purpleHeartIcon} alt="Coração Roxo" />
+          Total de {TotalConnections} Conexões já realizadas <img src={purpleHeartIcon} alt="Coração Roxo" />
         </span>
       </div>
     </div>

@@ -8,8 +8,10 @@ import './styles.css'
 
 // INTERFACE define o tipos de typagem de um obj
 
+// ? mostra que não é obrigátorio
 interface PageHeaderProps {
-  title: string
+  title: string;
+  description?: string
 }
 // Meu PageHeader é um FUNCTION COMPONENT dentro do react e as propiedades está dentro do < >
 const PageHeader: React.FC<PageHeaderProps> = (props) => {
@@ -24,6 +26,8 @@ const PageHeader: React.FC<PageHeaderProps> = (props) => {
 
       <div className="header-content">
         <strong>{props.title}</strong>
+        {/* Condição... se a primeira parte for vederdaira execulta a segunda dps do && */}
+        {props.description && <p>{props.description}</p>}
 
         {props.children}
 
